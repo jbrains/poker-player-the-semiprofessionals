@@ -3,6 +3,7 @@ package poker.player.kotlin
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.math.ceil
+import kotlin.math.max
 import kotlin.math.min
 
 class Player {
