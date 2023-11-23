@@ -13,7 +13,11 @@ data class PlayerInGame(
 )
 
 data class HoleCard(
+    // Rank of the card. Possible values are
+    // numbers 2-10 and J,Q,K,
     val rank: String,
+    // Suit of the card. Possible values are:
+    // clubs,spades,hearts,diamonds
     val suit: String,
 )
 
