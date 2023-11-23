@@ -1,13 +1,31 @@
 package poker.player.kotlin
+
 import com.fasterxml.jackson.annotation.JsonProperty
 
 data class PlayerInGame(
+    /** Id of the player (same as the index) */
     val id: Long,
+    /** Name specified in the tournament config */
     val name: String,
+    /** Status of the player:
+    - active: the player can make bets, and win
+    the current pot
+    - folded: the player folded, and gave up interest in
+    the current pot. They can return in the next round.
+    - out: the player lost all chips, and is out of this
+    sit'n'go */
     val status: String,
+    /**  Version identifier returned by the player */
     val version: String,
+    /**  Amount of chips still available for the player.
+    (Not including the chips the player bet in
+    this round.) */
     val stack: Long,
+    /** The amount of chips the player put into the pot */
     val bet: Long,
+    /**  The cards of the player. This is only visible for
+    your own player except after showdown, when cards
+    revealed are also included. */
     @JsonProperty("hole_cards")
     val holeCards: List<HoleCard>,
 )
