@@ -11,9 +11,10 @@ class Player {
         val holeCards = us["hole_cards"] as JSONArray
         val first = holeCards[0] as JSONObject
         val second = holeCards[1] as JSONObject
+        val ourStack = us["stack"]
 
         println(holeCards)
-        return (if (first["rank"] == second["rank"]) us["stack"] else 0) as Int
+        return (if (first["rank"] == second["rank"]) ourStack else 0) as Int
     }
 
     fun showdown() {
