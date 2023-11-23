@@ -20,7 +20,7 @@ class Player {
             isMidValuePair(first, second) -> raise(game_state)
             else -> fold(us)
         }
-        return min(calculatedBet, 0)
+        return max(calculatedBet, 0)
     }
     private fun isMidValuePair(first: JSONObject, second: JSONObject) =
         isPair(first, second) && (first["rank"] == "10" || first["rank"] == "J" || first["rank"] == "Q")
