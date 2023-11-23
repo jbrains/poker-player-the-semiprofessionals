@@ -10,6 +10,7 @@ class Player {
         val us = players[3]
         val holeCards = us["hole_cards"] as Array<JSONObject>
 
+        println(holeCards)
         return (if (holeCards[0]["rank"] == holeCards[1]["rank"]) us["stack"] else 0) as Int
     }
 
