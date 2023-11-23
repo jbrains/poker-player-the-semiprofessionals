@@ -1,5 +1,8 @@
 package poker.player.kotlin
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -8,9 +11,11 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import org.json.JSONObject
+import java.lang.Exception
 
 fun main(args: Array<String>) {
-    val player = Player()
+    val playerNew = PlayerNew()
+    val playerOld = Player()
     embeddedServer(Netty, getPort()) {
         routing {
             get("/") {
@@ -27,17 +32,22 @@ fun main(args: Array<String>) {
                         if (gameState == null) {
                             "Missing game_state!"
                         } else {
-                            val json = JSONObject(gameState)
-                            player.betRequest(json).toString()
+                            try {
+                                val mapper = ObjectMapper().registerKotlinModule()
+                                playerNew.betRequest(mapper.readValue<Game>(gameState)).toString()
+                            } catch (e: Exception) {
+                                val json = JSONObject(gameState)
+                                playerOld.betRequest(json).toString()
+                            }
                         }
                     }
 
                     "showdown" -> {
-                        player.showdown()
+                        playerNew.showdown()
                         "OK"
                     }
 
-                    "version" -> player.version()
+                    "version" -> playerNew.version()
                     else -> "Unknown action '$action'!"
                 }
 
