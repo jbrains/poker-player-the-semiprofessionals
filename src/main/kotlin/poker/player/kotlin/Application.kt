@@ -21,31 +21,36 @@ fun main(args: Array<String>) {
                 call.respondText("Hello, world!", ContentType.Text.Html)
             }
             post {
-                val formParameters = call.receiveParameters()
-                val action = formParameters["action"].toString()
+                try {
+                    val formParameters = call.receiveParameters()
+                    val action = formParameters["action"].toString()
 
-                val result = when (action) {
-                    "bet_request" -> {
-                        val gameState = formParameters["game_state"]
+                    val result = when (action) {
+                        "bet_request" -> {
+                            val gameState = formParameters["game_state"]
 
-                        if (gameState == null) {
-                            "Missing game_state!"
-                        } else {
-                            val mapper = ObjectMapper().registerKotlinModule()
-                            playerNew.betRequest(mapper.readValue<Game>(gameState)).toString()
+                            if (gameState == null) {
+                                "Missing game_state!"
+                            } else {
+                                val mapper = ObjectMapper().registerKotlinModule()
+                                playerNew.betRequest(mapper.readValue<Game>(gameState)).toString()
+                            }
                         }
+
+                        "showdown" -> {
+                            playerNew.showdown()
+                            "OK"
+                        }
+
+                        "version" -> playerNew.version()
+                        else -> "Unknown action '$action'!"
                     }
 
-                    "showdown" -> {
-                        playerNew.showdown()
-                        "OK"
-                    }
-
-                    "version" -> playerNew.version()
-                    else -> "Unknown action '$action'!"
+                    call.respondText(result)
+                } catch (e: Exception) {
+                    println("FATAL: $e")
+                    throw e
                 }
-
-                call.respondText(result)
             }
         }
     }.start(wait = true)

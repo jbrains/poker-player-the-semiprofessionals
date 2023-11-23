@@ -4,31 +4,29 @@ import kotlin.math.ceil
 import kotlin.math.max
 
 class PlayerNew {
-    fun betRequest(game_state: Game): Int {
-        println(game_state)
-        val players = game_state.players
-        val ourPlayerIndex = game_state.inAction
+    fun betRequest(gameState: Game): Int {
+        println(gameState)
+        val players = gameState.players
+        val ourPlayerIndex = gameState.inAction
         val us = players[ourPlayerIndex]
         val holeCards = us.holeCards
 
         // with aces, don't have to go all in if nobody raised before - minimize losses?
 
-
-
         println(holeCards)
         val calculatedBet = when {
-            isHighValuePair(holeCards[0], holeCards[1]) -> if (somebodyPreviouslyRaisedPot(game_state)) {
+            isHighValuePair(holeCards[0], holeCards[1]) -> if (somebodyPreviouslyRaisedPot(gameState)) {
                 betAllIn(us)
             } else {
-                raise(game_state)
+                raise(gameState)
             }
-            isMidValuePair(holeCards[0], holeCards[1]) -> raise(game_state)
+            isMidValuePair(holeCards[0], holeCards[1]) -> raise(gameState)
             else -> fold(us)
         }
         return max(calculatedBet, 0)
     }
 
-    private fun somebodyPreviouslyRaisedPot(game_state: Game) = game_state.pot - (3 * game_state.smallBlind) > 0
+    private fun somebodyPreviouslyRaisedPot(gameState: Game) = gameState.pot - (3 * gameState.smallBlind) > 0
 
     private fun isMidValuePair(first: HoleCard, second: HoleCard) =
         isPair(first, second) && (first.rank in arrayOf("10", "J", "Q"))
@@ -37,8 +35,8 @@ class PlayerNew {
 
     private fun betAllIn(player: PlayerInGame): Int = player.stack.toInt()
 
-    private fun raise(game_state: Game): Int {
-        val pot = game_state.pot
+    private fun raise(gameState: Game): Int {
+        val pot = gameState.pot
         return ceil(pot * 2.0 / 3.0).toInt()
     }
 
