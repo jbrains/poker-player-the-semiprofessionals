@@ -8,7 +8,9 @@ class Player {
         println(game_state)
         val players = game_state["players"] as Array<JSONObject>
         val us = players[3]
-        return us["stack"] as Int
+        val holeCards = us["hole_cards"] as Array<JSONObject>
+
+        return (if (holeCards[0]["rank"] == holeCards[1]["rank"]) us["stack"] else 0) as Int
     }
 
     fun showdown() {
