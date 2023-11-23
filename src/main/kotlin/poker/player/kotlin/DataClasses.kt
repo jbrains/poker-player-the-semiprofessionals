@@ -58,8 +58,10 @@ data class Game(
     /** The index of your player, in the players array */
     @JsonProperty("in_action")
     val inAction: Int,
-    // An array of the players. The order stays the same during the
-    //     entire tournament
+    /**
+     * An array of the players. The order stays the same during the
+     *  entire tournament
+     */
     val players: List<PlayerInGame>,
     @JsonProperty("community_cards")
     val communityCards: List<CommunityCard>,
