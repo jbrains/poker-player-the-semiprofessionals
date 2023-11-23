@@ -10,7 +10,8 @@ class Player {
     fun betRequest(game_state: JSONObject): Int {
         println(game_state)
         val players = game_state["players"] as JSONArray
-        val us = players[3] as JSONObject
+        val ourPlayerIndex = game_state["in_action"] as Int
+        val us = players[ourPlayerIndex] as JSONObject
         val holeCards = us["hole_cards"] as JSONArray
         val first = holeCards[0] as JSONObject
         val second = holeCards[1] as JSONObject
