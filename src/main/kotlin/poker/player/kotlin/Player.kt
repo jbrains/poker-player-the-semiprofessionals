@@ -9,7 +9,7 @@ class PlayerNew {
         val players = gameState.players
         val ourPlayerIndex = gameState.inAction
         val us = players[ourPlayerIndex]
-        val holeCards = us.holeCards
+        val holeCards = us.holeCards!!
 
         // with aces, don't have to go all in if nobody raised before - minimize losses?
 

@@ -27,7 +27,7 @@ data class PlayerInGame(
     your own player except after showdown, when cards
     revealed are also included. */
     @JsonProperty("hole_cards")
-    val holeCards: List<HoleCard>,
+    val holeCards: List<HoleCard>?,
 )
 
 data class HoleCard(
