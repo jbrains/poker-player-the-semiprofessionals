@@ -1,11 +1,9 @@
 package poker.player.kotlin
 
 import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jsonMapper
 import com.fasterxml.jackson.module.kotlin.kotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -18,7 +16,6 @@ import java.lang.Exception
 
 fun main(args: Array<String>) {
     val playerNew = PlayerNew()
-    val playerOld = Player()
     embeddedServer(Netty, getPort()) {
         routing {
             get("/") {
@@ -46,7 +43,7 @@ fun main(args: Array<String>) {
                                 } catch (e: Exception) {
                                     println("SERIALIZER ISSUE: $e")
                                     val json = JSONObject(gameState)
-                                    playerOld.betRequest(json).toString()
+                                    FailsafePlayer().betRequest(json).toString()
                                 }
                             }
                         }
