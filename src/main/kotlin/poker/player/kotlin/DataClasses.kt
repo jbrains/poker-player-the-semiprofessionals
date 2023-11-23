@@ -57,7 +57,7 @@ data class Game(
     val orbits: Long,
     // The index of your player, in the players array
     @JsonProperty("in_action")
-    val inAction: Long,
+    val inAction: Int,
     // An array of the players. The order stays the same during the
     //     entire tournament
     val players: List<PlayerInGame>,
