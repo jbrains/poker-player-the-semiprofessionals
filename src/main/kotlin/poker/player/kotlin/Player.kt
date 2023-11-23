@@ -3,6 +3,7 @@ package poker.player.kotlin
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.math.ceil
+import kotlin.math.min
 
 class Player {
     fun betRequest(game_state: JSONObject): Int {
@@ -14,11 +15,12 @@ class Player {
         val second = holeCards[1] as JSONObject
 
         println(holeCards)
-        return when {
+        val calculatedBet = when {
             isHighValuePair(first, second) -> betAllIn(us)
             isMidValuePair(first, second) -> raise(game_state)
             else -> fold(us)
         }
+        return min(calculatedBet, 0)
     }
     private fun isMidValuePair(first: JSONObject, second: JSONObject) =
         isPair(first, second) && (first["rank"] == "10" || first["rank"] == "J" || first["rank"] == "Q")
