@@ -6,12 +6,14 @@ import org.json.JSONObject
 class Player {
     fun betRequest(game_state: JSONObject): Int {
         println(game_state)
-        val players = game_state["players"] as Array<JSONObject>
-        val us = players[3]
-        val holeCards = us["hole_cards"] as Array<JSONObject>
+        val players = game_state["players"] as JSONArray
+        val us = players[3] as JSONObject
+        val holeCards = us["hole_cards"] as JSONArray
+        val first = holeCards[0] as JSONObject
+        val second = holeCards[1] as JSONObject
 
         println(holeCards)
-        return (if (holeCards[0]["rank"] == holeCards[1]["rank"]) us["stack"] else 0) as Int
+        return (if (first["rank"] == second["rank"]) us["stack"] else 0) as Int
     }
 
     fun showdown() {
