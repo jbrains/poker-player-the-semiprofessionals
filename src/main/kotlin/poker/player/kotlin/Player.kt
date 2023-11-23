@@ -14,12 +14,17 @@ class Player {
         val ourStack = us["stack"]
 
         println(holeCards)
-        return (if (first["rank"] == second["rank"] && (first["rank"] == "A" || first["rank"] == "K")) {
+        return (if (isHighValuePair(first, second)) {
             ourStack
         } else {
             0
         }) as Int
     }
+
+    private fun isHighValuePair(first: JSONObject, second: JSONObject) =
+        isPair(first, second) && (first["rank"] == "A" || first["rank"] == "K")
+
+    private fun isPair(first: JSONObject, second: JSONObject) = first["rank"] == second["rank"]
 
     fun showdown() {
     }
