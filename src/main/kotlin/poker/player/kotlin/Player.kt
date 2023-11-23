@@ -13,14 +13,23 @@ class PlayerNew {
 
         // with aces, don't have to go all in if nobody raised before - minimize losses?
 
+
+
         println(holeCards)
         val calculatedBet = when {
-            isHighValuePair(holeCards[0], holeCards[1]) -> betAllIn(us)
+            isHighValuePair(holeCards[0], holeCards[1]) -> if (somebodyPreviouslyRaisedPot(game_state)) {
+                betAllIn(us)
+            } else {
+                raise(game_state)
+            }
             isMidValuePair(holeCards[0], holeCards[1]) -> raise(game_state)
             else -> fold(us)
         }
         return max(calculatedBet, 0)
     }
+
+    private fun somebodyPreviouslyRaisedPot(game_state: Game) = game_state.pot - (3 * game_state.smallBlind) > 0
+
     private fun isMidValuePair(first: HoleCard, second: HoleCard) =
         isPair(first, second) && (first.rank in arrayOf("10", "J", "Q"))
 
