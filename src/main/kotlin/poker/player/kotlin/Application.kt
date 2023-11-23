@@ -1,6 +1,9 @@
 package poker.player.kotlin
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jsonMapper
+import com.fasterxml.jackson.module.kotlin.kotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import io.ktor.http.*
@@ -15,6 +18,7 @@ import java.lang.Exception
 
 fun main(args: Array<String>) {
     val playerNew = PlayerNew()
+    val playerOld = Player()
     embeddedServer(Netty, getPort()) {
         routing {
             get("/") {
@@ -32,8 +36,18 @@ fun main(args: Array<String>) {
                             if (gameState == null) {
                                 "Missing game_state!"
                             } else {
-                                val mapper = ObjectMapper().registerKotlinModule()
-                                playerNew.betRequest(mapper.readValue<Game>(gameState)).toString()
+                                println("game_state: $gameState")
+                                try {
+                                    val mapper = jsonMapper {
+                                        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                                        addModule(kotlinModule())
+                                    }
+                                    playerNew.betRequest(mapper.readValue<Game>(gameState)).toString()
+                                } catch (e: Exception) {
+                                    println("SERIALIZER ISSUE: $e")
+                                    val json = JSONObject(gameState)
+                                    playerOld.betRequest(json).toString()
+                                }
                             }
                         }
 
@@ -45,7 +59,6 @@ fun main(args: Array<String>) {
                         "version" -> playerNew.version()
                         else -> "Unknown action '$action'!"
                     }
-
                     call.respondText(result)
                 } catch (e: Exception) {
                     println("FATAL: $e")
