@@ -7,6 +7,7 @@ import io.ktor.server.netty.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
 fun main(args: Array<String>) {
@@ -28,6 +29,7 @@ fun main(args: Array<String>) {
                             "Missing game_state!"
                         } else {
                             val json = JSONObject(gameState)
+                            Json { ignoreUnknownKeys = true }.(gameState)
                             player.betRequest(json).toString()
                         }
                     }
