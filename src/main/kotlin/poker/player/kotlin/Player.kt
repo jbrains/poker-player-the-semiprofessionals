@@ -11,15 +11,18 @@ class Player {
         val holeCards = us["hole_cards"] as JSONArray
         val first = holeCards[0] as JSONObject
         val second = holeCards[1] as JSONObject
-        val ourStack = us["stack"]
 
         println(holeCards)
         return (if (isHighValuePair(first, second)) {
-            ourStack
+            betAllIn(us)
         } else {
-            0
-        }) as Int
+            fold(us)
+        })
     }
+
+    private fun fold(player: JSONObject) = 0
+
+    private fun betAllIn(player: JSONObject): Int = player["stack"] as Int
 
     private fun isHighValuePair(first: JSONObject, second: JSONObject) =
         isPair(first, second) && (first["rank"] == "A" || first["rank"] == "K")
