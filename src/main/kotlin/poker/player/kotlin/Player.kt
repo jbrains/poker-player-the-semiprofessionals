@@ -14,7 +14,11 @@ class Player {
         val ourStack = us["stack"]
 
         println(holeCards)
-        return (if (first["rank"] == second["rank"]) ourStack else 0) as Int
+        return (if (first["rank"] == second["rank"] && (first["rank"] == "A" || first["rank"] == "K")) {
+            ourStack
+        } else {
+            0
+        }) as Int
     }
 
     fun showdown() {
