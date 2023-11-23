@@ -1,7 +1,5 @@
 package poker.player.kotlin
 
-import org.json.JSONArray
-import org.json.JSONObject
 import kotlin.math.ceil
 import kotlin.math.max
 
@@ -12,19 +10,19 @@ class PlayerNew {
         val ourPlayerIndex = game_state.inAction
         val us = players[ourPlayerIndex]
         val holeCards = us.holeCards
-        val first = holeCards[0]
-        val second = holeCards[1]
+
+        // with aces, don't have to go all in if nobody raised before - minimize losses?
 
         println(holeCards)
         val calculatedBet = when {
-            isHighValuePair(first, second) -> betAllIn(us)
-            isMidValuePair(first, second) -> raise(game_state)
+            isHighValuePair(holeCards[0], holeCards[1]) -> betAllIn(us)
+            isMidValuePair(holeCards[0], holeCards[1]) -> raise(game_state)
             else -> fold(us)
         }
         return max(calculatedBet, 0)
     }
     private fun isMidValuePair(first: HoleCard, second: HoleCard) =
-        isPair(first, second) && (first.rank == "10" || first.rank == "J" || first.rank == "Q")
+        isPair(first, second) && (first.rank in arrayOf("10", "J", "Q"))
 
     private fun fold(player: PlayerInGame) = 0
 
@@ -35,8 +33,10 @@ class PlayerNew {
         return ceil(pot * 2.0 / 3.0).toInt()
     }
 
+    // rank difference
+
     private fun isHighValuePair(first: HoleCard, second: HoleCard) =
-        isPair(first, second) && (first.rank == "A" || first.rank == "K")
+        isPair(first, second) && (first.rank in arrayOf("A", "K"))
 
     private fun isPair(first: HoleCard, second: HoleCard) = first.rank == second.rank
 
