@@ -15,7 +15,6 @@ import java.lang.Exception
 
 fun main(args: Array<String>) {
     val playerNew = PlayerNew()
-    val playerOld = Player()
     embeddedServer(Netty, getPort()) {
         routing {
             get("/") {
@@ -32,13 +31,8 @@ fun main(args: Array<String>) {
                         if (gameState == null) {
                             "Missing game_state!"
                         } else {
-                            try {
-                                val mapper = ObjectMapper().registerKotlinModule()
-                                playerNew.betRequest(mapper.readValue<Game>(gameState)).toString()
-                            } catch (e: Exception) {
-                                val json = JSONObject(gameState)
-                                playerOld.betRequest(json).toString()
-                            }
+                            val mapper = ObjectMapper().registerKotlinModule()
+                            playerNew.betRequest(mapper.readValue<Game>(gameState)).toString()
                         }
                     }
 
