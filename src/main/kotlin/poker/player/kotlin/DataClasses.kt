@@ -16,3 +16,34 @@ data class HoleCard(
     val rank: String,
     val suit: String,
 )
+
+
+data class Game(
+    @JsonProperty("tournament_id")
+    val tournamentId: String,
+    @JsonProperty("game_id")
+    val gameId: String,
+    val round: Long,
+    @JsonProperty("bet_index")
+    val betIndex: Long,
+    @JsonProperty("small_blind")
+    val smallBlind: Long,
+    @JsonProperty("current_buy_in")
+    val currentBuyIn: Long,
+    val pot: Long,
+    @JsonProperty("minimum_raise")
+    val minimumRaise: Long,
+    val dealer: Long,
+    val orbits: Long,
+    @JsonProperty("in_action")
+    val inAction: Long,
+    val players: List<PlayerInGame>,
+    @JsonProperty("community_cards")
+    val communityCards: List<CommunityCard>,
+)
+
+data class CommunityCard(
+    val rank: String,
+    val suit: String,
+)
+
