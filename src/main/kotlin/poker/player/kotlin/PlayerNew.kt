@@ -15,7 +15,7 @@ class PlayerNew {
 
         println(holeCards)
         val calculatedBet = when {
-            isHighValuePair(holeCards[0], holeCards[1]) -> if (somebodyPreviouslyRaisedPot(gameState)) {
+            isHighValueHand(holeCards[0], holeCards[1]) -> if (somebodyPreviouslyRaisedPot(gameState)) {
                 betAllIn(us)
             } else {
                 raise(gameState)
@@ -42,6 +42,13 @@ class PlayerNew {
 
     // rank difference
 
+    private fun isHighValueHand(first: HoleCard, second: HoleCard) =
+        isHighValuePair(first, second) || isSuitedAceKing(first, second)
+
+    fun isSuitedAceKing(first: HoleCard, second: HoleCard): Boolean {
+        return listOf(first, second).sortedBy { it.rank }.map { it.rank } == listOf("A", "K") && first.suit == second.suit
+    }
+
     private fun isHighValuePair(first: HoleCard, second: HoleCard) =
         isPair(first, second) && (first.rank in arrayOf("A", "K"))
 
@@ -51,6 +58,6 @@ class PlayerNew {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.1.0"
+        return "Kotlin Player 0.2.0"
     }
 }
