@@ -84,7 +84,5 @@ data class Game(
     val players: List<PlayerInGame>,
     @JsonProperty("community_cards")
     val communityCards: List<Card>,
-    @JsonProperty("amount_won")
-    val amountWon: Int?
 )
 
