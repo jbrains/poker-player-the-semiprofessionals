@@ -8,40 +8,52 @@ class SuitedAceKing {
 
     @Test
     fun aceKingSameSuit() {
-        assertEquals(true,
+        assertEquals(
+            true,
             PlayerNew().isSuitedAceKing(
-                HoleCard("A", "hearts"),
-                HoleCard("K", "hearts"),
+                listOf(
+                    HoleCard("A", "hearts"),
+                    HoleCard("K", "hearts"),
+                )
             )
         )
     }
 
     @Test
     fun aceKingSameSuitBackwards() {
-        assertEquals(true,
+        assertEquals(
+            true,
             PlayerNew().isSuitedAceKing(
-                HoleCard("K", "hearts"),
-                HoleCard("A", "hearts"),
+                listOf(
+                    HoleCard("K", "hearts"),
+                    HoleCard("A", "hearts"),
+                )
             )
         )
     }
 
     @Test
     fun aceKingDifferentSuit() {
-        assertEquals(false,
+        assertEquals(
+            false,
             PlayerNew().isSuitedAceKing(
-                HoleCard("A", "hearts"),
-                HoleCard("K", "spades"),
+                listOf(
+                    HoleCard("A", "hearts"),
+                    HoleCard("K", "spades"),
+                )
             )
         )
     }
 
     @Test
     fun aceNotKingSameSuit() {
-        assertEquals(false,
+        assertEquals(
+            false,
             PlayerNew().isSuitedAceKing(
-                HoleCard("A", "hearts"),
-                HoleCard("Q", "hearts"),
+                listOf(
+                    HoleCard("A", "hearts"),
+                    HoleCard("Q", "hearts"),
+                )
             )
         )
     }
