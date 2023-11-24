@@ -17,17 +17,9 @@ class PlayerNew {
         val calculatedBet = when {
             gameState.players.filter { it.status == "active" }.map { it.name }.toSet() == setOf("PokerGPT", "The Semiprofessionals") -> {
                 println("take their money")
-                if (somebodyPreviouslyRaisedPot(gameState)) {
-                    betAllIn(us)
-                } else {
-                    raiseTwoThirds(gameState)
-                }
+                highValueBet(gameState, us)
             }
-            isHighValueHand(holeCards, gameState.communityCards) -> if (somebodyPreviouslyRaisedPot(gameState)) {
-                betAllIn(us)
-            } else {
-                raiseTwoThirds(gameState)
-            }
+            isHighValueHand(holeCards, gameState.communityCards) -> highValueBet(gameState, us)
 
             isMidValuePair(holeCards) -> raiseTwoThirds(gameState)
             isPair(holeCards) || isSuitedJackOrBetter(holeCards) -> raiseDoubleSmallBlind(gameState)
@@ -35,6 +27,13 @@ class PlayerNew {
         }
         return max(calculatedBet, 0)
     }
+
+    private fun highValueBet(gameState: Game, us: PlayerInGame) =
+        if (somebodyPreviouslyRaisedPot(gameState)) {
+            betAllIn(us)
+        } else {
+            raiseTwoThirds(gameState)
+        }
 
     private fun somebodyPreviouslyRaisedPot(gameState: Game) = gameState.pot - (3 * gameState.smallBlind) > 0
 
@@ -106,6 +105,6 @@ class PlayerNew {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.6.0 - Take PokerGPT's Money"
+        return "Kotlin Player 0.6.1"
     }
 }
