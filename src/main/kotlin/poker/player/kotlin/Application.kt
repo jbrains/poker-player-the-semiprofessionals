@@ -49,9 +49,25 @@ fun main(args: Array<String>) {
                         }
 
                         "showdown" -> {
-                            playerNew.showdown()
-                            println("showdown: $formParameters")
-                            "OK"
+                            val gameState = formParameters["game_state"]
+
+                            if (gameState == null) {
+                                println("Missing game_state!")
+                                "OK"
+                            } else {
+                                println("game_state: $gameState")
+                                try {
+                                    val mapper = jsonMapper {
+                                        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                                        addModule(kotlinModule())
+                                    }
+                                    playerNew.showdown(mapper.readValue<Game>(gameState)).toString()
+                                    "OK"
+                                } catch (e: Exception) {
+                                    println("SERIALIZER ISSUE: $e")
+                                    "OK"
+                                }
+                            }
                         }
 
                         "version" -> playerNew.version()

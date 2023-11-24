@@ -107,10 +107,10 @@ class PlayerNew {
 
     private fun isPair(holeCards: List<Card>) = holeCards[0].rank == holeCards[1].rank
 
-    fun showdown() {
+    fun showdown(readValue: Game) {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.7.1"
+        return "Kotlin Player 0.7.2"
     }
 }
