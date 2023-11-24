@@ -71,6 +71,6 @@ class PlayerNew {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.3.1"
+        return "Kotlin Player 0.3.2"
     }
 }
