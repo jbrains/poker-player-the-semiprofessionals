@@ -57,13 +57,19 @@ class PlayerNew {
 
 
     private fun isHighValueHand(holeCards: List<Card>, communityCards: List<Card>): Boolean {
-        return isHighValuePair(holeCards, communityCards) || isSuitedConnection(holeCards)
+        return isHighValuePair(holeCards, communityCards) || isSuitedConnection(holeCards + communityCards)
     }
 
-    fun isSuitedConnection(holeCards: List<Card>): Boolean {
-        val (first, second) = holeCards.map { rankNumber(it.rank) }.sortedDescending()
-        val isClose = abs(first - second) <= 1
-        return isClose && isSameSuit(holeCards)
+    fun isSuitedConnection(allCards: List<Card>): Boolean {
+        for ((suit, suitedCards) in allCards.groupBy { it.suit }) {
+            if (suitedCards.size >= 2) {
+                val (first, second) = suitedCards.map { rankNumber(it.rank) }.sortedDescending()
+                if (abs(first - second) <= 1) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     fun isSuitedJackOrBetter(holeCards: List<Card>): Boolean {
@@ -107,6 +113,6 @@ class PlayerNew {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.7.6"
+        return "Kotlin Player 0.8.0"
     }
 }

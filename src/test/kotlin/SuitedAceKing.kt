@@ -157,4 +157,61 @@ class SuitedConnectorsTest {
             )
         )
     }
+
+    @Test
+    fun threeSuitedConnection() {
+        assertEquals(
+            true,
+            PlayerNew().isSuitedConnection(
+                listOf(
+                    Card("K", "hearts"),
+                    Card("K", "spades"),
+                    Card("Q", "hearts"),
+                )
+            )
+        )
+    }
+
+    @Test
+    fun threeSuitedNotConnection() {
+        assertEquals(
+            false,
+            PlayerNew().isSuitedConnection(
+                listOf(
+                    Card("K", "hearts"),
+                    Card("K", "spades"),
+                    Card("Q", "clubs"),
+                )
+            )
+        )
+    }
+
+    @Test
+    fun suitedConnectorsNotFirstAndLast() {
+        assertEquals(
+            true,
+            PlayerNew().isSuitedConnection(
+                listOf(
+                    Card("K", "spades"),
+                    Card("K", "hearts"),
+                    Card("Q", "hearts"),
+                )
+            )
+        )
+    }
+
+    @Test
+    fun twoSuitedConnectors() {
+        assertEquals(
+            true,
+            PlayerNew().isSuitedConnection(
+                listOf(
+                    Card("7", "hearts"),
+                    Card("9", "hearts"),
+                    Card("Q", "hearts"),
+                    Card("K", "hearts"),
+                )
+            )
+        )
+    }
 }
