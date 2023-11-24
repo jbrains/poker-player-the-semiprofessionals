@@ -207,7 +207,7 @@ class SuitedConnectorsTest {
             PlayerNew().isSuitedConnection(
                 listOf(
                     Card("7", "hearts"),
-                    Card("9", "hearts"),
+                    Card("8", "hearts"),
                     Card("Q", "hearts"),
                     Card("K", "hearts"),
                 )
