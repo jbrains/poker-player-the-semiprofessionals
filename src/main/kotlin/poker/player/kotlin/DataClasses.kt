@@ -27,10 +27,10 @@ data class PlayerInGame(
     your own player except after showdown, when cards
     revealed are also included. */
     @JsonProperty("hole_cards")
-    val holeCards: List<HoleCard>?,
+    val holeCards: List<Card>?,
 )
 
-data class HoleCard(
+data class Card(
     /** Rank of the card. Possible values are
     numbers 2-10 and J,Q,K, */
     val rank: String,
@@ -38,7 +38,6 @@ data class HoleCard(
      clubs,spades,hearts,diamonds */
     val suit: String,
 )
-
 
 data class Game(
     /** Id of the current tournament */
@@ -82,11 +81,6 @@ data class Game(
      */
     val players: List<PlayerInGame>,
     @JsonProperty("community_cards")
-    val communityCards: List<CommunityCard>,
-)
-
-data class CommunityCard(
-    val rank: String,
-    val suit: String,
+    val communityCards: List<Card>,
 )
 

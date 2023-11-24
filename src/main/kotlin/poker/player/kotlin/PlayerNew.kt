@@ -31,7 +31,7 @@ class PlayerNew {
     private fun somebodyPreviouslyRaisedPot(gameState: Game) = gameState.pot - (3 * gameState.smallBlind) > 0
 
 
-    private fun isMidValuePair(holeCards: List<HoleCard>): Boolean {
+    private fun isMidValuePair(holeCards: List<Card>): Boolean {
         return isPair(holeCards) && (holeCards[0].rank in arrayOf("10", "J", "Q"))
     }
 
@@ -49,23 +49,23 @@ class PlayerNew {
     // rank difference
 
 
-    private fun isHighValueHand(holeCards: List<HoleCard>): Boolean {
+    private fun isHighValueHand(holeCards: List<Card>): Boolean {
         return isHighValuePair(holeCards) || isSuitedAceKing(holeCards)
     }
 
-    fun isSuitedAceKing(holeCards: List<HoleCard>): Boolean {
+    fun isSuitedAceKing(holeCards: List<Card>): Boolean {
         val aceAndKing = holeCards.sortedBy { it.rank }.map { it.rank } == listOf("A", "K")
         return aceAndKing && isSameSuit(holeCards)
     }
 
-    private fun isSameSuit(holeCards: List<HoleCard>) =
+    private fun isSameSuit(holeCards: List<Card>) =
         holeCards[0].suit == holeCards[1].suit
 
-    private fun isHighValuePair(holeCards: List<HoleCard>): Boolean {
+    private fun isHighValuePair(holeCards: List<Card>): Boolean {
         return isPair(holeCards) && (holeCards[0].rank in arrayOf("A", "K"))
     }
 
-    private fun isPair(holeCards: List<HoleCard>) = holeCards[0].rank == holeCards[1].rank
+    private fun isPair(holeCards: List<Card>) = holeCards[0].rank == holeCards[1].rank
 
     fun showdown() {
     }

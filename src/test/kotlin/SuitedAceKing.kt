@@ -1,4 +1,4 @@
-import poker.player.kotlin.HoleCard
+import poker.player.kotlin.Card
 import poker.player.kotlin.PlayerNew
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -12,8 +12,8 @@ class SuitedAceKing {
             true,
             PlayerNew().isSuitedAceKing(
                 listOf(
-                    HoleCard("A", "hearts"),
-                    HoleCard("K", "hearts"),
+                    Card("A", "hearts"),
+                    Card("K", "hearts"),
                 )
             )
         )
@@ -25,8 +25,8 @@ class SuitedAceKing {
             true,
             PlayerNew().isSuitedAceKing(
                 listOf(
-                    HoleCard("K", "hearts"),
-                    HoleCard("A", "hearts"),
+                    Card("K", "hearts"),
+                    Card("A", "hearts"),
                 )
             )
         )
@@ -38,8 +38,8 @@ class SuitedAceKing {
             false,
             PlayerNew().isSuitedAceKing(
                 listOf(
-                    HoleCard("A", "hearts"),
-                    HoleCard("K", "spades"),
+                    Card("A", "hearts"),
+                    Card("K", "spades"),
                 )
             )
         )
@@ -51,8 +51,8 @@ class SuitedAceKing {
             false,
             PlayerNew().isSuitedAceKing(
                 listOf(
-                    HoleCard("A", "hearts"),
-                    HoleCard("Q", "hearts"),
+                    Card("A", "hearts"),
+                    Card("Q", "hearts"),
                 )
             )
         )
