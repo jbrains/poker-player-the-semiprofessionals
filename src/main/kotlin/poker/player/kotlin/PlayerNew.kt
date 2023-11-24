@@ -22,7 +22,7 @@ class PlayerNew {
             }
 
             isMidValuePair(holeCards) -> raiseTwoThirds(gameState)
-            isPair(holeCards) -> raiseDoubleSmallBlind(gameState)
+            isPair(holeCards) || isSuitedJackOrBetter(holeCards) -> raiseDoubleSmallBlind(gameState)
             else -> fold(us)
         }
         return max(calculatedBet, 0)
@@ -56,6 +56,11 @@ class PlayerNew {
     fun isSuitedAceKing(holeCards: List<Card>): Boolean {
         val aceAndKing = holeCards.sortedBy { it.rank }.map { it.rank } == listOf("A", "K")
         return aceAndKing && isSameSuit(holeCards)
+    }
+
+    fun isSuitedJackOrBetter(holeCards: List<Card>): Boolean {
+        val highCardJackOrBetter = holeCards.map { rankNumber(it.rank) }.max() >= rankNumber("J")
+        return highCardJackOrBetter && isSameSuit(holeCards)
     }
 
     private fun isSameSuit(holeCards: List<Card>) =
@@ -93,6 +98,6 @@ class PlayerNew {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.4.0"
+        return "Kotlin Player 0.5.0"
     }
 }
