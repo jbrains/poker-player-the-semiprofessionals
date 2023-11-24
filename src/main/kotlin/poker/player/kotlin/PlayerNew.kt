@@ -15,7 +15,7 @@ class PlayerNew {
 
         println(holeCards)
         val calculatedBet = when {
-            isHighValueHand(holeCards) -> if (somebodyPreviouslyRaisedPot(gameState)) {
+            isHighValueHand(holeCards, gameState.communityCards) -> if (somebodyPreviouslyRaisedPot(gameState)) {
                 betAllIn(us)
             } else {
                 raiseTwoThirds(gameState)
@@ -49,8 +49,8 @@ class PlayerNew {
     // rank difference
 
 
-    private fun isHighValueHand(holeCards: List<Card>): Boolean {
-        return isHighValuePair(holeCards) || isSuitedAceKing(holeCards)
+    private fun isHighValueHand(holeCards: List<Card>, communityCards: List<Card>): Boolean {
+        return isHighValuePair(holeCards, communityCards) || isSuitedAceKing(holeCards)
     }
 
     fun isSuitedAceKing(holeCards: List<Card>): Boolean {
@@ -61,8 +61,8 @@ class PlayerNew {
     private fun isSameSuit(holeCards: List<Card>) =
         holeCards[0].suit == holeCards[1].suit
 
-    private fun isHighValuePair(holeCards: List<Card>): Boolean {
-        return isPair(holeCards) && (holeCards[0].rank in arrayOf("A", "K"))
+    private fun isHighValuePair(holeCards: List<Card>, communityCards: List<Card>): Boolean {
+        return (isPair(holeCards) && (holeCards[0].rank in arrayOf("A", "K"))) || containsPair(holeCards + communityCards) in arrayOf("A", "K")
     }
 
     fun containsPair(cards: List<Card>): String? {
@@ -93,6 +93,6 @@ class PlayerNew {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.3.2"
+        return "Kotlin Player 0.4.0"
     }
 }
