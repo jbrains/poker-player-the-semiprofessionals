@@ -50,6 +50,7 @@ fun main(args: Array<String>) {
 
                         "showdown" -> {
                             playerNew.showdown()
+                            println("showdown: $formParameters")
                             "OK"
                         }
 
