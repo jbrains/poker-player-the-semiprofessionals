@@ -28,6 +28,8 @@ data class PlayerInGame(
     revealed are also included. */
     @JsonProperty("hole_cards")
     val holeCards: List<Card>?,
+    @JsonProperty("amount_won")
+    val amountWon: Int?
 )
 
 data class Card(
@@ -82,5 +84,7 @@ data class Game(
     val players: List<PlayerInGame>,
     @JsonProperty("community_cards")
     val communityCards: List<Card>,
+    @JsonProperty("amount_won")
+    val amountWon: Int?
 )
 
