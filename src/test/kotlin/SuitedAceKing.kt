@@ -58,3 +58,48 @@ class SuitedAceKing {
         )
     }
 }
+
+class ContainsPair {
+    @Test
+    fun hasPair() {
+        assertEquals(
+            "A",
+            PlayerNew().containsPair(
+                listOf(
+                    Card("A", "hearts"),
+                    Card("K", "spades"),
+                    Card("A", "spades")
+                )
+            )
+        )
+    }
+
+    @Test
+    fun noPair() {
+        assertEquals(
+            null,
+            PlayerNew().containsPair(
+                listOf(
+                    Card("A", "hearts"),
+                    Card("K", "spades"),
+                    Card("Q", "spades")
+                )
+            )
+        )
+    }
+
+    @Test
+    fun multiplePairs() {
+        assertEquals(
+            "A",
+            PlayerNew().containsPair(
+                listOf(
+                    Card("10", "hearts"),
+                    Card("10", "spades"),
+                    Card("A", "hearts"),
+                    Card("A", "spades")
+                )
+            )
+        )
+    }
+}

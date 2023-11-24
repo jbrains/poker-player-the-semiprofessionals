@@ -65,6 +65,28 @@ class PlayerNew {
         return isPair(holeCards) && (holeCards[0].rank in arrayOf("A", "K"))
     }
 
+    fun containsPair(cards: List<Card>): String? {
+        return cards.sortedByDescending { rankNumber(it.rank) }.zipWithNext().firstOrNull { (a, b) -> a.rank == b.rank }?.first?.rank
+    }
+
+    fun rankNumber(rank: String) = when (rank) {
+        "1" -> 1
+        "2" -> 2
+        "3" -> 3
+        "4" -> 4
+        "5" -> 5
+        "6" -> 6
+        "7" -> 7
+        "8" -> 8
+        "9" -> 9
+        "10" -> 10
+        "J" -> 11
+        "Q" -> 12
+        "K" -> 13
+        "A" -> 14
+        else -> 0
+    }
+
     private fun isPair(holeCards: List<Card>) = holeCards[0].rank == holeCards[1].rank
 
     fun showdown() {
