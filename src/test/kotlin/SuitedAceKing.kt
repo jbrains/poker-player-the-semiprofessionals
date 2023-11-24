@@ -103,3 +103,58 @@ class ContainsPair {
         )
     }
 }
+
+class SuitedConnectorsTest {
+
+    @Test
+    fun connector1() {
+        assertEquals(
+            true,
+            PlayerNew().isSuitedConnection(
+                listOf(
+                    Card("A", "hearts"),
+                    Card("K", "hearts"),
+                )
+            )
+        )
+    }
+
+    @Test
+    fun connector2() {
+        assertEquals(
+            true,
+            PlayerNew().isSuitedConnection(
+                listOf(
+                    Card("K", "hearts"),
+                    Card("Q", "hearts"),
+                )
+            )
+        )
+    }
+
+    @Test
+    fun notSuited() {
+        assertEquals(
+            false,
+            PlayerNew().isSuitedConnection(
+                listOf(
+                    Card("7", "hearts"),
+                    Card("6", "spades"),
+                )
+            )
+        )
+    }
+
+    @Test
+    fun notConnector() {
+        assertEquals(
+            false,
+            PlayerNew().isSuitedConnection(
+                listOf(
+                    Card("K", "hearts"),
+                    Card("J", "hearts"),
+                )
+            )
+        )
+    }
+}

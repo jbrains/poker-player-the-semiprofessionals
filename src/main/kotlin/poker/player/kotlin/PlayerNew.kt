@@ -1,5 +1,6 @@
 package poker.player.kotlin
 
+import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.max
 
@@ -20,8 +21,7 @@ class PlayerNew {
                 highValueBet(gameState, us)
             }
             isHighValueHand(holeCards, gameState.communityCards) -> highValueBet(gameState, us)
-
-            isMidValuePair(holeCards) -> raiseTwoThirds(gameState)
+            isMidValuePair(holeCards) || isSuitedConnection(holeCards) -> raiseTwoThirds(gameState)
             isPair(holeCards) || isSuitedJackOrBetter(holeCards) -> raiseDoubleSmallBlind(gameState)
             else -> fold(us)
         }
@@ -65,6 +65,12 @@ class PlayerNew {
         return aceAndKing && isSameSuit(holeCards)
     }
 
+    fun isSuitedConnection(holeCards: List<Card>): Boolean {
+        val (first, second) = holeCards.map { rankNumber(it.rank) }.sortedDescending()
+        val isClose = abs(first - second) <= 1
+        return isClose && isSameSuit(holeCards)
+    }
+
     fun isSuitedJackOrBetter(holeCards: List<Card>): Boolean {
         val highCardJackOrBetter = holeCards.map { rankNumber(it.rank) }.max() >= rankNumber("J")
         return highCardJackOrBetter && isSameSuit(holeCards)
@@ -105,6 +111,6 @@ class PlayerNew {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.6.1"
+        return "Kotlin Player 0.7.0"
     }
 }
