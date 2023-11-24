@@ -15,6 +15,14 @@ class PlayerNew {
 
         println(holeCards)
         val calculatedBet = when {
+            gameState.players.filter { it.status == "active" }.map { it.name }.toSet() == setOf("PokerGPT", "The Semiprofessionals") -> {
+                println("take their money")
+                if (somebodyPreviouslyRaisedPot(gameState)) {
+                    betAllIn(us)
+                } else {
+                    raiseTwoThirds(gameState)
+                }
+            }
             isHighValueHand(holeCards, gameState.communityCards) -> if (somebodyPreviouslyRaisedPot(gameState)) {
                 betAllIn(us)
             } else {
@@ -98,6 +106,6 @@ class PlayerNew {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.5.0"
+        return "Kotlin Player 0.6.0 - Take PokerGPT's Money"
     }
 }
