@@ -18,9 +18,10 @@ class PlayerNew {
             isHighValueHand(holeCards[0], holeCards[1]) -> if (somebodyPreviouslyRaisedPot(gameState)) {
                 betAllIn(us)
             } else {
-                raise(gameState)
+                raiseTwoThirds(gameState)
             }
-            isMidValuePair(holeCards[0], holeCards[1]) -> raise(gameState)
+            isMidValuePair(holeCards[0], holeCards[1]) -> raiseTwoThirds(gameState)
+            isPair(holeCards[0], holeCards[1]) -> raiseDoubleSmallBlind(gameState)
             else -> fold(us)
         }
         return max(calculatedBet, 0)
@@ -35,10 +36,12 @@ class PlayerNew {
 
     private fun betAllIn(player: PlayerInGame): Int = player.stack.toInt()
 
-    private fun raise(gameState: Game): Int {
+    private fun raiseTwoThirds(gameState: Game): Int {
         val pot = gameState.pot
         return ceil(pot * 2.0 / 3.0).toInt()
     }
+
+    private fun raiseDoubleSmallBlind(gameState: Game) = gameState.smallBlind * 2
 
     // rank difference
 
@@ -58,6 +61,6 @@ class PlayerNew {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.2.0"
+        return "Kotlin Player 0.3.0"
     }
 }

@@ -57,7 +57,7 @@ data class Game(
     /** The small blind in the current round. The big blind is twice
      the small blind */
     @JsonProperty("small_blind")
-    val smallBlind: Long,
+    val smallBlind: Int,
     /** The amount of the largest current bet from any one player */
     @JsonProperty("current_buy_in")
     val currentBuyIn: Long,
