@@ -10,7 +10,7 @@ class SuitedAceKing {
     fun aceKingSameSuit() {
         assertEquals(
             true,
-            PlayerNew().isSuitedAceKing(
+            PlayerNew().isSuitedConnection(
                 listOf(
                     Card("A", "hearts"),
                     Card("K", "hearts"),
@@ -23,7 +23,7 @@ class SuitedAceKing {
     fun aceKingSameSuitBackwards() {
         assertEquals(
             true,
-            PlayerNew().isSuitedAceKing(
+            PlayerNew().isSuitedConnection(
                 listOf(
                     Card("K", "hearts"),
                     Card("A", "hearts"),
@@ -36,7 +36,7 @@ class SuitedAceKing {
     fun aceKingDifferentSuit() {
         assertEquals(
             false,
-            PlayerNew().isSuitedAceKing(
+            PlayerNew().isSuitedConnection(
                 listOf(
                     Card("A", "hearts"),
                     Card("K", "spades"),
@@ -49,7 +49,7 @@ class SuitedAceKing {
     fun aceNotKingSameSuit() {
         assertEquals(
             false,
-            PlayerNew().isSuitedAceKing(
+            PlayerNew().isSuitedConnection(
                 listOf(
                     Card("A", "hearts"),
                     Card("Q", "hearts"),

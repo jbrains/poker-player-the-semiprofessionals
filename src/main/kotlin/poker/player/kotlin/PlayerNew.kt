@@ -21,7 +21,7 @@ class PlayerNew {
                 highValueBet(gameState, us)
             }
             isHighValueHand(holeCards, gameState.communityCards) -> highValueBet(gameState, us)
-            isMidValuePair(holeCards) || isSuitedConnection(holeCards) -> raiseTwoThirds(gameState)
+            isMidValuePair(holeCards) -> raiseTwoThirds(gameState)
             isPair(holeCards) || isSuitedJackOrBetter(holeCards) -> raiseDoubleSmallBlind(gameState)
             else -> fold(us)
         }
@@ -57,12 +57,7 @@ class PlayerNew {
 
 
     private fun isHighValueHand(holeCards: List<Card>, communityCards: List<Card>): Boolean {
-        return isHighValuePair(holeCards, communityCards) || isSuitedAceKing(holeCards)
-    }
-
-    fun isSuitedAceKing(holeCards: List<Card>): Boolean {
-        val aceAndKing = holeCards.sortedBy { it.rank }.map { it.rank } == listOf("A", "K")
-        return aceAndKing && isSameSuit(holeCards)
+        return isHighValuePair(holeCards, communityCards) || isSuitedConnection(holeCards)
     }
 
     fun isSuitedConnection(holeCards: List<Card>): Boolean {
@@ -112,6 +107,6 @@ class PlayerNew {
     }
 
     fun version(): String {
-        return "Kotlin Player 0.7.5"
+        return "Kotlin Player 0.7.6"
     }
 }
