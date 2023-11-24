@@ -107,10 +107,15 @@ class PlayerNew {
 
     private fun isPair(holeCards: List<Card>) = holeCards[0].rank == holeCards[1].rank
 
-    fun showdown(readValue: Game) {
+    fun showdown(game: Game) {
+        if (game.amountWon != null) {
+            println("Players won: ${game.players.filter { it.amountWon != null }.joinToString { it.name + " by " + it.amountWon }}")
+        } else {
+            println("Showdown without game win")
+        }
     }
 
     fun version(): String {
-        return "Kotlin Player 0.7.3"
+        return "Kotlin Player 0.7.4"
     }
 }
